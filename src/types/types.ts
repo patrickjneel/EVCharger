@@ -1,4 +1,4 @@
-export interface ChargerLocationData {
+export interface ChargerLocationObject {
   id: string;
   created: string;
   updated: string;
@@ -30,4 +30,8 @@ export interface ChargerLocationData {
   lastSessionStarted: string;
   meterType: string;
   serialNumber: string;
+}
+
+export interface ChargerLocationData {
+  data: ChargerLocationObject[]
 }

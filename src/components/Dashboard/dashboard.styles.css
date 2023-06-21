@@ -1,0 +1,20 @@
+.dashboard-container {
+  border-right: 1px solid white;
+  margin: 10px;
+  width: 50%;
+}
+
+.dashboard-card-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.dashboard-icon {
+  height: 35px;
+  width: 40px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 500;
+}

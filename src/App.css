@@ -23,3 +23,14 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+.locations-dashboard {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.amp-logo {
+  height: 115px;
+  width: 300px;
+}

@@ -1,31 +1,33 @@
-import React, { useCallback } from 'react';
+import React, { FC } from 'react';
 import { Card, Typography, CardContent } from '@mui/material';
 
 import ChargeIcon from '../../assets/charger.png';
+import { ChargerLocationObject } from '../../types/types';
+import './dashboard.styles.css';
 
-const Dashboard = ({ data }: any) => {
+interface DashBoardProps {
+  data: ChargerLocationObject[] | undefined;
+}
+
+const Dashboard: FC<DashBoardProps> = ({ data }) => {
   const calcAvg = (arr: any): number =>
     arr.reduce(
-      (total: number, { maxCapacity }: any) => total + maxCapacity / arr.length,
+      (total: number, { maxCapacity }: ChargerLocationObject) =>
+        total + maxCapacity / arr.length,
       0
     );
 
   const calcAvg2 = (arr2: any): number =>
     arr2.reduce(
-      (total: number, { currentChargingLoad }: any) =>
+      (total: number, { currentChargingLoad }: ChargerLocationObject) =>
         total + currentChargingLoad / arr2.length,
       0
     );
 
   return (
-    <div
-      className="dashboard-container"
-      style={{ width: '50%', margin: '10px', borderRight: '1px solid white' }}
-    >
-      <Typography variant="h4" style={{ padding: '0', margin: '0' }}>
-        Dashboard Readouts
-      </Typography>
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+    <div className="dashboard-container">
+      <Typography variant="h4">Dashboard Readouts</Typography>
+      <div className="dashboard-card-container">
         <Card
           variant="outlined"
           style={{ width: '320px', margin: '10px', textAlign: 'center' }}
@@ -38,15 +40,9 @@ const Dashboard = ({ data }: any) => {
             }}
           >
             <Typography>{calcAvg(data).toFixed(2)}</Typography>
-            <img
-              style={{ height: '35px', width: '40px' }}
-              src={ChargeIcon}
-              alt="plug icon"
-            />
+            <img className="dashboard-icon" src={ChargeIcon} alt="plug icon" />
           </CardContent>
-          <span style={{ fontSize: '14px', fontWeight: '500' }}>
-            Average Max Capacity
-          </span>
+          <span className="card-title">Average Max Capacity</span>
         </Card>
         <Card
           variant="outlined"
@@ -61,14 +57,12 @@ const Dashboard = ({ data }: any) => {
           >
             <Typography>{calcAvg2(data).toFixed(2)}</Typography>
             <img
-              style={{ height: '35px', width: '40px' }}
+              className="dashboard-icon"
               src={ChargeIcon}
               alt="charger icon"
             />
           </CardContent>
-          <span style={{ fontSize: '14px', fontWeight: '500' }}>
-            Average Charging Load
-          </span>
+          <span className="card-title">Average Charging Load</span>
         </Card>
         <Card
           variant="outlined"
@@ -82,17 +76,21 @@ const Dashboard = ({ data }: any) => {
             }}
           >
             <Typography>
-              {Math.max(...data.map(({ currentLimit }: any) => currentLimit))}
+              {data !== undefined
+                ? Math.max(
+                    ...data?.map(
+                      ({ currentLimit }: ChargerLocationObject) => currentLimit
+                    )
+                  )
+                : 0}
             </Typography>
             <img
-              style={{ height: '35px', width: '40px' }}
+              className="dashboard-icon"
               src={ChargeIcon}
               alt="charger icon"
             />
           </CardContent>
-          <span style={{ fontSize: '14px', fontWeight: '500' }}>
-            Max Current Limit
-          </span>
+          <span className="card-title">Max Current Limit</span>
         </Card>
         <Card
           variant="outlined"
@@ -106,17 +104,21 @@ const Dashboard = ({ data }: any) => {
             }}
           >
             <Typography>
-              {Math.min(...data.map(({ currentLimit }: any) => currentLimit))}
+              {data !== undefined
+                ? Math.min(
+                    ...data?.map(
+                      ({ currentLimit }: ChargerLocationObject) => currentLimit
+                    )
+                  )
+                : 0}
             </Typography>
             <img
-              style={{ height: '35px', width: '40px' }}
+              className="dashboard-icon"
               src={ChargeIcon}
               alt="charger icon"
             />
           </CardContent>
-          <span style={{ fontSize: '14px', fontWeight: '500' }}>
-            Min Current Limit
-          </span>
+          <span className="card-title">Min Current Limit</span>
         </Card>
       </div>
     </div>

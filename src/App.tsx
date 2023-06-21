@@ -9,28 +9,19 @@ import './App.css';
 
 const App = () => {
   const { data, isLoading, isError } = useChargingStations();
+
   return (
     <div className="App-header">
-      <img
-        src={AmpLogo}
-        alt="amp-control-logo"
-        style={{
-          height: '115px',
-          width: '300px',
-        }}
-      />
+      <img className="amp-logo" src={AmpLogo} alt="amp-control-logo" />
       {isLoading ? (
         <CircularProgress />
       ) : (
         <>
-          <div
-            className="locations-dashboard"
-            style={{ display: 'flex', flexDirection: 'row', width: '100%' }}
-          >
-            <Dashboard data={data?.data} />
-            <Card data={data?.data} />
+          <div className="locations-dashboard">
+            <Dashboard data={data} />
+            <Card data={data} />
           </div>
-          <Chart data={data?.data} />
+          <Chart data={data} />
         </>
       )}
       {isError && <div>Error pleasue Try again...</div>}

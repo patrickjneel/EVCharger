@@ -1,17 +1,27 @@
-import React from 'react';
+import React, { FC } from 'react';
 import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
 import { barOptions, pieOptions } from './chartUtils';
+import { ChargerLocationObject } from '../../types/types';
 
-const Chart = ({ data }: any) => {
-  const chargingNames = data.map(({ name }: any) => name);
-  const chartData = data.map(({ name, maxCapacity }: any) => ({
-    name,
-    data: [maxCapacity],
-  }));
+interface ChartProps {
+  data: ChargerLocationObject[] | undefined;
+}
 
-  const chargerLocations = data.reduce(
-    (accu: [name: any, y: number], { location }: any) => {
+const Chart: FC<ChartProps> = ({ data }) => {
+  const chargingNames: string[] | undefined =
+    data !== undefined
+      ? data?.map(({ name }: ChargerLocationObject) => name)
+      : [];
+  const chartData: any = data?.map(
+    ({ name, maxCapacity }: ChargerLocationObject) => ({
+      name,
+      data: [maxCapacity],
+    })
+  );
+
+  const chargerLocations: Array<{ name: string; y: number }> = data?.reduce(
+    (accu: any, { location }: ChargerLocationObject) => {
       const foundObj = accu.find((obj: any) => obj.name === location);
       if (foundObj) foundObj.y++;
       else {
@@ -22,8 +32,6 @@ const Chart = ({ data }: any) => {
     },
     []
   );
-
-  console.log('chargerLocations', chargerLocations);
 
   const barGraphOptions = barOptions(chargingNames, chartData);
   const pieChartOptions = pieOptions(chargerLocations);
