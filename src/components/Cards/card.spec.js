@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import Card from './Card';
-import mockData from '../../mockData/mockData';
+import { mockChargingData } from '../../mockData/mockData.ts';
 
 jest.mock('react-query', () => ({
   ...jest.requireActual('react-query'),
@@ -12,7 +12,7 @@ describe('Card Tests', () => {
   test('should render basic UI elements', () => {
     render(
       <QueryClientProvider client={new QueryClient()}>
-        <Card data={mockData} />
+        <Card data={mockChargingData} />
       </QueryClientProvider>
     );
 
@@ -23,12 +23,25 @@ describe('Card Tests', () => {
   test('should have default for select as ALL', () => {
     render(
       <QueryClientProvider client={new QueryClient()}>
-        <Card data={mockData} />
+        <Card data={mockChargingData} />
       </QueryClientProvider>
     );
 
     expect(screen.getByText('ALL')).toBeInTheDocument();
+    expect(screen.getAllByText('OFFLINE')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('ONLINE')[0]).toBeInTheDocument();
   });
 
-  test('should filter all cards by status', () => {});
+  test('should have both ONLINE and OFFLINE by default', () => {
+    render(
+      <QueryClientProvider client={new QueryClient()}>
+        <Card data={mockChargingData} />
+      </QueryClientProvider>
+    );
+
+    expect(screen.getAllByText('OFFLINE')[0]).toBeInTheDocument();
+    expect(screen.getAllByText('ONLINE')[0]).toBeInTheDocument();
+  });
+
+  test('should show only ONLINE when a user selects ONLINE', () => {});
 });
