@@ -26,9 +26,7 @@ const Dashboard: FC<DashBoardProps> = ({ data }) => {
               alignItems: 'center',
             }}
           >
-            <Typography>
-              {averageFunc(data, 'maxCapacity').toFixed(2)}
-            </Typography>
+            <Typography>{averageFunc(data, 'maxCapacity')}</Typography>
             <img className="dashboard-icon" src={ChargeIcon} alt="plug icon" />
           </CardContent>
           <span className="card-title">Average Max Capacity</span>
@@ -44,9 +42,7 @@ const Dashboard: FC<DashBoardProps> = ({ data }) => {
               alignItems: 'center',
             }}
           >
-            <Typography>
-              {averageFunc(data, 'currentChargingLoad').toFixed(2)}
-            </Typography>
+            <Typography>{averageFunc(data, 'currentChargingLoad')}</Typography>
             <img
               className="dashboard-icon"
               src={ChargeIcon}
