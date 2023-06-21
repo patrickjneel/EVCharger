@@ -3,6 +3,7 @@ import HighchartsReact from 'highcharts-react-official';
 import Highcharts from 'highcharts';
 import { barOptions, pieOptions } from './chartUtils';
 import { ChargerLocationObject } from '../../types/types';
+import './chart.styles.css';
 
 interface ChartProps {
   data: ChargerLocationObject[] | undefined;
@@ -37,26 +38,18 @@ const Chart: FC<ChartProps> = ({ data }) => {
   const pieChartOptions = pieOptions(chargerLocations);
 
   return (
-    <div
-      style={{
-        display: 'flex',
-        flexDirection: 'row',
-        borderTop: '1px solid white',
-        width: '100%',
-        justifyContent: 'center',
-      }}
-    >
-      <div
-        className="chart-container"
+    <div className="chart-container">
+      {/* <div
+        className="chart-wrapper"
         style={{ margin: '10px', display: 'flex', flexDirection: 'row' }}
-      >
-        <div className="chart-wrapper" style={{ margin: '15px' }}>
-          <HighchartsReact highcharts={Highcharts} options={barGraphOptions} />
-        </div>
-        <div className="chart-wrapper" style={{ margin: '15px' }}>
-          <HighchartsReact highcharts={Highcharts} options={pieChartOptions} />
-        </div>
+      > */}
+      <div className="chart-wrapper" style={{ margin: '15px' }}>
+        <HighchartsReact highcharts={Highcharts} options={barGraphOptions} />
       </div>
+      <div className="chart-wrapper" style={{ margin: '15px' }}>
+        <HighchartsReact highcharts={Highcharts} options={pieChartOptions} />
+      </div>
+      {/* </div> */}
     </div>
   );
 };

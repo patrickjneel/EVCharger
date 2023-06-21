@@ -34,3 +34,9 @@
   height: 115px;
   width: 300px;
 }
+
+@media only screen and (max-width: 630px) {
+  .locations-dashboard {
+    flex-direction: column;
+  }
+}

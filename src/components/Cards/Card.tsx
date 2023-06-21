@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 import {
   Card as MUICard,
   Typography,
@@ -9,9 +9,14 @@ import {
   InputLabel,
 } from '@mui/material';
 
-import './cardStyles.css';
+import './card.styles.css';
+import { ChargerLocationObject } from '../../types/types';
 
-const Card = ({ data }: any): any => {
+interface CardProps {
+  data: ChargerLocationObject[] | undefined;
+}
+
+const Card: FC<CardProps> = ({ data }) => {
   const [filterValues, setFilterValues] = useState<any>(data);
   const menuItemsArr: { name: string; value: string }[] = [
     { name: 'ONLINE', value: 'ONLINE' },
@@ -19,7 +24,7 @@ const Card = ({ data }: any): any => {
     { name: 'ALL', value: 'ALL' },
   ];
 
-  const setValues = (filterValues: any, status: any) => {
+  const setValues = (filterValues: any, status: string) => {
     if (status === 'ALL') return setFilterValues(data);
     return setFilterValues(
       filterValues.filter(({ onlineStatus }: any) => onlineStatus === status)
@@ -27,7 +32,7 @@ const Card = ({ data }: any): any => {
   };
 
   return (
-    <div className="card-container" style={{ width: '50%', margin: '10px' }}>
+    <div className="card-container">
       <Typography variant="h4">Charging Locations</Typography>
       <InputLabel style={{ color: 'white' }}>Filter By:</InputLabel>
       <FormControl>
@@ -45,13 +50,17 @@ const Card = ({ data }: any): any => {
           ))}
         </Select>
       </FormControl>
-      <div
-        className="scroll-container"
-        style={{ maxHeight: '400px', overflow: 'scroll' }}
-      >
+      <div className="scroll-container">
         {filterValues
           ? filterValues.map(
-              ({ id, name, vendor, location, onlineStatus, current }: any) => (
+              ({
+                id,
+                name,
+                vendor,
+                location,
+                onlineStatus,
+                current,
+              }: ChargerLocationObject) => (
                 <MUICard
                   key={id}
                   variant="outlined"

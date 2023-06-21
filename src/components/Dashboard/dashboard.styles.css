@@ -18,3 +18,14 @@
   font-size: 14px;
   font-weight: 500;
 }
+
+@media only screen and (max-width: 630px) {
+  .dashboard-container {
+    border-right: none;
+    width: unset;
+  }
+
+  .dashboard-card-container {
+    flex-direction: column;
+  }
+}
