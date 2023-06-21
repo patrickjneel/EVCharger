@@ -10,18 +10,23 @@ const Chart = ({ data }: any) => {
     data: [maxCapacity],
   }));
 
-  const chargerLocations = data.reduce((accu: any, { location }: any) => {
-    if (!accu[location]) accu[location] = 1;
-    else accu[location]++;
-    return accu;
-  }, {});
+  const chargerLocations = data.reduce(
+    (accu: [name: any, y: number], { location }: any) => {
+      const foundObj = accu.find((obj: any) => obj.name === location);
+      if (foundObj) foundObj.y++;
+      else {
+        const newObj = { name: location, y: 1 };
+        accu.push(newObj);
+      }
+      return accu;
+    },
+    []
+  );
+
+  console.log('chargerLocations', chargerLocations);
 
   const barGraphOptions = barOptions(chargingNames, chartData);
   const pieChartOptions = pieOptions(chargerLocations);
-
-  // const pieOptions = {
-
-  // };
 
   return (
     <div

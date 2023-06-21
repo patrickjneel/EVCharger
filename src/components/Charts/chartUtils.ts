@@ -33,20 +33,7 @@ export const pieOptions = (chargerLocations: any) => ({
       {
         name: 'Number in States',
         colorByPoint: true,
-        data: [
-          {
-            name: 'California',
-            y: chargerLocations.California,
-          },
-          {
-            name: 'Colorado',
-            y: chargerLocations.Colorado,
-          },
-          {
-            name: 'New York',
-            y: chargerLocations['New York'],
-          },
-        ],
+        data: chargerLocations,
       },
     ],
 })
