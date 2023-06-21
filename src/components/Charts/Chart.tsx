@@ -23,7 +23,9 @@ const Chart: FC<ChartProps> = ({ data }) => {
 
   const chargerLocations: Array<{ name: string; y: number }> = data?.reduce(
     (accu: any, { location }: ChargerLocationObject) => {
-      const foundObj = accu.find((obj: any) => obj.name === location);
+      const foundObj = accu.find(
+        (obj: ChargerLocationObject) => obj.name === location
+      );
       if (foundObj) foundObj.y++;
       else {
         const newObj = { name: location, y: 1 };
@@ -39,17 +41,12 @@ const Chart: FC<ChartProps> = ({ data }) => {
 
   return (
     <div className="chart-container">
-      {/* <div
-        className="chart-wrapper"
-        style={{ margin: '10px', display: 'flex', flexDirection: 'row' }}
-      > */}
       <div className="chart-wrapper" style={{ margin: '15px' }}>
         <HighchartsReact highcharts={Highcharts} options={barGraphOptions} />
       </div>
       <div className="chart-wrapper" style={{ margin: '15px' }}>
         <HighchartsReact highcharts={Highcharts} options={pieChartOptions} />
       </div>
-      {/* </div> */}
     </div>
   );
 };

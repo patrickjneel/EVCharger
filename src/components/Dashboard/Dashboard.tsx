@@ -4,6 +4,7 @@ import { Card, Typography, CardContent } from '@mui/material';
 import ChargeIcon from '../../assets/charger.png';
 import { ChargerLocationObject } from '../../types/types';
 import './dashboard.styles.css';
+import { averageFunc } from '../../utils/utils';
 
 interface DashBoardProps {
   data: ChargerLocationObject[] | undefined;
@@ -23,6 +24,9 @@ const Dashboard: FC<DashBoardProps> = ({ data }) => {
         total + currentChargingLoad / arr2.length,
       0
     );
+
+  const bb = averageFunc(data, 'maxCapacity');
+  console.log('avg func', bb);
 
   return (
     <div className="dashboard-container">

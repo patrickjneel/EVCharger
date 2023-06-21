@@ -23,6 +23,9 @@
   .dashboard-container {
     border-right: none;
     width: unset;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .dashboard-card-container {
