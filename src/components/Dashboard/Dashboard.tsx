@@ -11,23 +11,6 @@ interface DashBoardProps {
 }
 
 const Dashboard: FC<DashBoardProps> = ({ data }) => {
-  const calcAvg = (arr: any): number =>
-    arr.reduce(
-      (total: number, { maxCapacity }: ChargerLocationObject) =>
-        total + maxCapacity / arr.length,
-      0
-    );
-
-  const calcAvg2 = (arr2: any): number =>
-    arr2.reduce(
-      (total: number, { currentChargingLoad }: ChargerLocationObject) =>
-        total + currentChargingLoad / arr2.length,
-      0
-    );
-
-  const bb = averageFunc(data, 'maxCapacity');
-  console.log('avg func', bb);
-
   return (
     <div className="dashboard-container">
       <Typography variant="h4">Dashboard Readouts</Typography>
@@ -43,7 +26,9 @@ const Dashboard: FC<DashBoardProps> = ({ data }) => {
               alignItems: 'center',
             }}
           >
-            <Typography>{calcAvg(data).toFixed(2)}</Typography>
+            <Typography>
+              {averageFunc(data, 'maxCapacity').toFixed(2)}
+            </Typography>
             <img className="dashboard-icon" src={ChargeIcon} alt="plug icon" />
           </CardContent>
           <span className="card-title">Average Max Capacity</span>
@@ -59,7 +44,9 @@ const Dashboard: FC<DashBoardProps> = ({ data }) => {
               alignItems: 'center',
             }}
           >
-            <Typography>{calcAvg2(data).toFixed(2)}</Typography>
+            <Typography>
+              {averageFunc(data, 'currentChargingLoad').toFixed(2)}
+            </Typography>
             <img
               className="dashboard-icon"
               src={ChargeIcon}
